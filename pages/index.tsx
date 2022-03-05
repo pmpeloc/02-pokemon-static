@@ -1,30 +1,43 @@
 import { NextPage, GetStaticProps } from 'next';
 import { Layout } from '../components/layouts';
+import { IPokemonListResponse, ISmallPokemon } from '../interfaces';
 import { pokeApi } from '../services';
 
-const HomePage: NextPage = (props) => {
-  console.log(props);
+interface Props {
+  pokemons: ISmallPokemon[];
+}
+
+const HomePage: NextPage<Props> = ({ pokemons }) => {
+  console.log(pokemons);
 
   return (
     <Layout title='Listado de Pokemons'>
       <ul>
-        <li>Poke</li>
-        <li>Poke</li>
-        <li>Poke</li>
-        <li>Poke</li>
-        <li>Poke</li>
-        <li>Poke</li>
+        {pokemons.map(({ id, name }) => (
+          <li key={id}>
+            #{id} - {name}
+          </li>
+        ))}
       </ul>
     </Layout>
   );
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { data } = await pokeApi.get('/pokemon?limit=151');
+  const { data } = await pokeApi.get<IPokemonListResponse>(
+    '/pokemon?limit=151'
+  );
+  const urlImg =
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
+  const pokemons: ISmallPokemon[] = data.results.map((pokemon, index) => ({
+    ...pokemon,
+    id: ++index,
+    img: `${urlImg}${++index}.svg`,
+  }));
 
   return {
     props: {
-      pokemons: data.results,
+      pokemons,
     },
   };
 };
