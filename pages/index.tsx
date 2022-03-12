@@ -28,11 +28,13 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   );
   const urlImg =
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/';
-  const pokemons: ISmallPokemon[] = data.results.map((pokemon, index) => ({
-    ...pokemon,
-    id: ++index,
-    img: `${urlImg}${++index}.svg`,
-  }));
+  const pokemons: ISmallPokemon[] = data.results.map(
+    (pokemon: any, index: number) => ({
+      ...pokemon,
+      id: ++index,
+      img: `${urlImg}${++index}.svg`,
+    })
+  );
 
   return {
     props: {
