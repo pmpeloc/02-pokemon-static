@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     (pokemon: any, index: number) => ({
       ...pokemon,
       id: ++index,
-      img: `${urlImg}${++index}.svg`,
+      img: `${urlImg}${index}.svg`,
     })
   );
 
