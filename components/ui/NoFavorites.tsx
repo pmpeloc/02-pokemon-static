@@ -1,4 +1,7 @@
-import { Container, Text, Image } from '@nextui-org/react';
+import { Container, Text } from '@nextui-org/react';
+import Image from 'next/image';
+
+import styles from './NoFavorites.module.css';
 
 export const NoFavorites = () => {
   return (
@@ -9,8 +12,6 @@ export const NoFavorites = () => {
         height: 'calc(100vh - 100px)',
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'center',
-        gap: '4rem',
       }}>
       <Text h1>No hay favoritos</Text>
       <Image
@@ -18,9 +19,7 @@ export const NoFavorites = () => {
         alt='Pokemon'
         width={250}
         height={250}
-        css={{
-          opacity: '0.1',
-        }}
+        className={styles['opacity-1']}
       />
     </Container>
   );
