@@ -1,22 +1,20 @@
+import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import { Container, Text } from '@nextui-org/react';
 
 import { Layout } from '../../components/layouts';
+import { NoFavorites } from '../../components/ui';
+import { localFavorites } from '../../utils';
 
 const FavoritesPage: NextPage = () => {
+  const [favoritePokemons, setFavoritePokemons] = useState<number[]>([]);
+
+  useEffect(() => {
+    setFavoritePokemons(localFavorites.pokemons);
+  }, []);
+
   return (
     <Layout title='Favoritos'>
-      <Container
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: 'calc(100vh - 100px',
-          alignItems: 'center',
-          justifyContent: 'center',
-          alignSelf: 'center',
-        }}>
-        <Text h1>No hay favoritos</Text>
-      </Container>
+      <NoFavorites />
     </Layout>
   );
 };
